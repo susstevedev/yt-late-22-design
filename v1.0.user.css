@@ -8,11 +8,13 @@
 
 @author       sussteve226
 
-@version      1.0
+@version      1.3.1.5
 
 @preprocessor stylus
 
 @var checkbox oldDesc "Non Rounded Description" 0
+
+@var text customBR "Button border radius" 15px
 
 @var checkbox upperCase "Uppercase subscribe and action buttons" 1
 
@@ -25,6 +27,12 @@
 @var checkbox oldYou "Old You section in navbar" 0
 
 @var checkbox oldVideoActions "Non Rounded Action Buttons" 0
+
+@var checkbox oldVideo "Non Rounded Video Player and Thumbnail" 1
+
+@var checkbox oldChip "Old Chipbar" 0
+
+@var checkbox oldSearch "Old search bar" 0
 
 ==/UserStyle== */
 
@@ -103,8 +111,11 @@ div#end.style-scope.ytd-masthead .yt-spec-button-shape-next--size-m[aria-label="
 
 div#end.style-scope.ytd-masthead .yt-spec-button-shape-next--size-m[aria-label="Create"]:hover {
     opacity: 1 !important;
-    background-color: #ddd !important;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.08s ease-in-out;
+}
+
+html:not([darker-dark-theme][dark]) div#end.style-scope.ytd-masthead .yt-spec-button-shape-next--size-m[aria-label="Create"]:hover {
+    background-color: #e6e6e6 !important;
 }
 
 div#end.style-scope.ytd-masthead .yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--icon-leading[aria-label="Create"] .yt-spec-button-shape-next__button-text-content { 
@@ -166,7 +177,6 @@ yt-img-shadow[id=avatar] {
 /* remove you section from sidebar */
 if oldYou {
     a[title=You] {
-        /* display: none !important; */
         yt-formatted-string {
             font-weight: normal !important;
             font-size: 1.4rem !important;
@@ -180,20 +190,32 @@ if oldYou {
 
 @-moz-document domain("youtube.com") {
 /* thumbnail and player */
+if oldVideo {
+    .thumbnail, #thumbnail {
+        border-radius: 0px !important;
+    }
 
-.thumbnail, #thumbnail {
-    border-radius: 0px !important;
+    #ytd-player {
+        border-radius: 0px !important;
+    }
+    
+    .ytp-settings-menu {
+        border-radius: 0px !important;
+    }
+    .shortsLockupViewModelHostThumbnailContainerRounded {
+        border-radius: 0px !important;
+    }
 }
-
-#ytd-player {
-    border-radius: 0px !important;
-}
-
 #cinematics.ytd-watch-flexy {
     display: none;
 }
-
 .ytp-play-progress {
+    background: linear-gradient(#f03, #f03) !important;
+}
+.yt-spec-avatar-shape--live-ring {
+    border: 2px solid #CC0000 !important;
+}
+.ytd-app #progress {
     background: linear-gradient(#f03, #f03) !important;
 }
 }
@@ -203,12 +225,12 @@ if oldYou {
  #subscribe, #subscribe-button { 
      yt-button-shape {
         button, a[aria-label="Subscribe"] {
-            background-color: #CC0000;
+            background-color: #CC0000 !important;
             color: #fff;
             if upperCase {
                 text-transform: uppercase !important;
             }
-            border-radius: 15px !important;
+            border-radius: customBR !important;
          }
          button[aria-label^=Unsubscribe], button.yt-spec-button-shape-next.yt-spec-button-shape-next--tonal {
             background-color: var(--yt-spec-badge-chip-background) !important;
@@ -216,7 +238,7 @@ if oldYou {
             if upperCase {
                 text-transform: uppercase !important;
             }
-            border-radius: 15px!important;
+            border-radius: customBR !important;
         }
     }
 }
@@ -227,34 +249,68 @@ if oldYou {
     if upperCase {
         text-transform: uppercase !important;
     }
-    border-radius: 15px !important;
+    border-radius: customBR !important;
+}
+
+.yt-subscribe-button-view-model-wiz__container {
+    .yt-spec-button-shape-next--overlay.yt-spec-button-shape-next--filled, .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--filled {
+       background-color: #CC0000 !important;
+        color: #fff !important;
+        if upperCase {
+            text-transform: uppercase !important;
+        }
+        border-radius: customBR !important;
+    }
+}
+
+.style-scope .ytd-subscribe-button-renderer {
+    .yt-spec-button-shape-next .yt-spec-button-shape-next--tonal .yt-spec-button-shape-next--mono .yt-spec-button-shape-next--size-s .yt-spec-button-shape-next--enable-backdrop-filter-experiment {
+        background-color: #CC0000 !important;
+        color: #fff !important;
+        if upperCase {
+            text-transform: uppercase !important;
+        }
+        border-radius: customBR !important;
+    }
 }
 }
 
 @-moz-document domain("youtube.com") {
 /* restore join and comment button color */
 .yt-spec-button-shape-next .yt-spec-button-shape-next--filled .yt-spec-button-shape-next--disabled .yt-spec-button-shape-next--size-m {
-    background-color: #0000FF !important;
+    background-color: #065fd4 !important;
     if upperCase {
         text-transform: uppercase !important;
     }
-    border-radius: 15px !important;
+    border-radius: customBR !important;
+}
+.yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--filled, .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal[aria-label="Join this channel"], 
+[aria-label="Join this channel"] 
+{
+    background-color: #065fd4 !important;
+    color: #fff !important;
+    if upperCase {
+        text-transform: uppercase !important;
+    }
+    border-radius: customBR !important;
 }
 
-.yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--filled, .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal[aria-label="Join this channel"] {
-    background-color: #065fd4 !important;
-    color: #fff;
-    if upperCase {
-        text-transform: uppercase !important;
+.sponsor-button {
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--filled {
+        background-color: #065fd4 !important;
+        color: #fff !important;
+        if upperCase {
+            text-transform: uppercase !important;
+        }
+        border-radius: customBR !important;
     }
-    border-radius: 15px !important;
 }
 
 
 .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
     if oldVideoActions {
         background-color: transparent !important;
-        border-radius: 15px !important;
+        border-radius: 0px !important;
     }
     
     if upperCase {
@@ -264,32 +320,60 @@ if oldYou {
 }
 
 @-moz-document domain("youtube.com") {
-/* old channel page */
-.yt-tab-shape-wiz__tab, .yt-tab-shape-wiz__tab--tab-selected {
-    text-transform: uppercase;
-    padding: 0px 50px 0px 50px;
-    font-size: 15px;
-}
+    /* old channel page */
+    /* .yt-tab-shape-wiz__tab, .yt-tab-shape-wiz__tab--tab-selected { */
+    .yt-tab-shape, .yt-tab-shape--host-clickable {
+        text-transform: uppercase;
+        padding: 0px 40px 0px 40px !important;
+    }
+    
+    .yt-tab-shape__tab {
+        font-size: 15px;
+    }
+    
+    #titlebar-text.ytd-sponsorships-offer-renderer {
+        text-transform: uppercase;
+    }
 
-if oldPosts {
-    yt-tab-shape[tab-title="Posts"] {
-        .yt-tab-shape-wiz__tab {
-            visibility: hidden;
-            padding: 0px 0px 0px 0px;
-        }
-        .yt-tab-shape-wiz__tab:after {
-            content: 'Community';
-            visibility: visible;
-            padding: 0px 50px 0px 0px;
-            text-align: center;
+if oldChip {
+        yt-chip-cloud-chip-renderer[chip-style=STYLE_DEFAULT][selected] #chip-container.yt-chip-cloud-chip-renderer, yt-chip-cloud-chip-renderer[chip-style=STYLE_HOME_FILTER][selected] #chip-container.yt-chip-cloud-chip-renderer {
+            border-radius: 2px !important;
+            text-transform: uppercase;
+            background-color: #D3D3D3;
         }
     }
-}
 
-if oldPfp {
-    .yt-spec-avatar-shape--avatar-size-giant {
-        width: 80px;
-        height: 80px;
+    if oldPosts {
+        yt-tab-shape[tab-title="Posts"] {
+            /*.yt-tab-shape-wiz__tab {
+                visibility: hidden;
+                padding: 0px 0px 0px 0px;
+            }
+            .yt-tab-shape-wiz__tab:after {
+                content: 'Community';
+                visibility: visible;
+                padding: 0px 50px 0px 0px;
+                text-align: center;
+            } */
+            
+            .yt-tab-shape__tab {
+                visibility: hidden;
+                padding: 0px 0px 0px 0px;
+            }
+            
+            .yt-tab-shape__tab:after {
+                content: 'Community';
+                visibility: visible;
+                padding: 0px 40px 0px 0px;
+                text-align: center;
+            }
+        }
+    }
+
+    if oldPfp {
+        .yt-spec-avatar-shape--avatar-size-giant {
+            width: 80px;
+            height: 80px;
         }
     }
 }
@@ -305,5 +389,38 @@ if oldPfp {
             border-radius: 0px !important;
             background-color: transparent !important;
         }
+    }
+}
+@-moz-document domain("youtube.com") {
+    /* old 2018 search */
+    if oldSearch {
+        .ytSearchboxComponentInputBox, .ytSearchboxComponentInputBoxHasFocus {
+            border-radius: 0px !important;
+            padding: 0 4px 0 4px !important;
+        }
+
+        .ytSearchboxComponentInnerSearchIcon {
+            display: none;
+        }
+
+        .ytSearchboxComponentHost {
+            height: 35px !important;
+        }
+
+        .ytSearchboxComponentSearchButton {
+            border-radius: 0px !important;
+            width: 80px !important;
+        }
+    }
+}
+@-moz-document domain("youtube.com") {
+    /* remove top glass effect */
+    #frosted-glass.with-chipbar.ytd-app {
+        background: var(--yt-spec-base-background) !important;
+        backdrop-filter: none !important;
+    }
+    
+    #newness-dot.ytd-guide-entry-renderer {
+        background-color: var(--yt-spec-themed-red);
     }
 }
