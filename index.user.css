@@ -8,7 +8,7 @@
 
 @author       sussteve226
 
-@version      1.3.9.7.1
+@version      1.3.10
 
 @preprocessor stylus
 
@@ -27,6 +27,8 @@
 @var checkbox oldVideo "Non Rounded Video Player and Thumbnail" 1
 
 @var checkbox oldVideoSidebar "Old recommendations on right side of video" 1
+
+@var checkbox oldMainSidebar "Fix 2025 changes to navigation bar" 1
 
 @var checkbox oldPlayer "Attemp to fix new player" 1
 
@@ -1126,10 +1128,11 @@ a[aria-label="Sign in"].yt-spec-button-shape-next.yt-spec-button-shape-next--fil
         #description.ytd-watch-metadata {
             background: transparent !important;
             #info-container {
-                bottom: 125px !important;
+                bottom: 13vh !important;
                 position: relative;
             }
-            top: 50px !important;
+            top: 4vh !important;
+            left: 1vw !important;
             position: relative;
             margin-bottom: 60px !important;
         }
@@ -1138,22 +1141,27 @@ a[aria-label="Sign in"].yt-spec-button-shape-next.yt-spec-button-shape-next--fil
             background: transparent !important;
         }
         
-        .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
-            background-color: transparent !important;
-            border-radius: 0px !important;
-
-            if upperCase {
-                text-transform: uppercase !important;
-            }
-        }
-        
         #above-the-fold #top-row #owner {
             top: 55px !important;
             position: relative;
             
             #subscribe-button {
-                left: 350% !important;
+                left: calc(65vw - 50vh) !important;
                 position: relative;
+            }
+            
+            #sponsor-button {
+                left: calc(65vw - 50vh) !important;
+                position: relative;
+            }
+        }
+        
+        .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
+            background-color: transparent !important;
+            border-radius: 0px !important;
+        
+            if upperCase {
+                text-transform: uppercase !important;
             }
         }
     }
@@ -1209,6 +1217,44 @@ a[aria-label="Sign in"].yt-spec-button-shape-next.yt-spec-button-shape-next--fil
         }
     }
 }
+@-moz-document domain("youtube.com") {
+    /* fix 2025 changes to navbar */
+    if oldMainSidebar {
+        #sections.ytd-guide-renderer > ytd-guide-section-renderer.ytd-guide-renderer:nth-child(1) {
+            height: 125px !important;
+        }
+        
+        #sections.ytd-guide-renderer > ytd-guide-section-renderer.ytd-guide-renderer:nth-child(2) {
+            top: 310px !important;
+            position: relative;
+            
+            [href*="/feed/subscriptions"][title*="Subscriptions"] {
+                bottom: 380px !important;
+                position: relative;
+            }
+        }
+        
+        ytd-guide-entry-renderer[is-header] .guide-icon.ytd-guide-entry-renderer {
+            display: block !important;
+        }
+        
+        ytd-guide-entry-renderer[is-header] .title.ytd-guide-entry-renderer {
+            font-size: 1.4rem !important;
+            line-height: 2rem !important;
+            font-weight: 400 !important;
+        }
+        
+        ytd-guide-entry-renderer[is-header] .arrow-icon.ytd-guide-entry-renderer {
+            display: none !important;
+        }
+        
+        #sections.ytd-guide-renderer > ytd-guide-section-renderer.ytd-guide-renderer:nth-child(3) {
+            bottom: 390px !important;
+            position: relative;
+        }
+    }
+}
+
 @-moz-document domain("youtube.com") {
     /* old player ui */
     /* isn't really that great, please use the provided userstyle in the description of the userstyles.world page */
